@@ -28,7 +28,7 @@ app.post("/api/check-brand", async (req, res) => {
           {
             parts: [
               {
-                text: `User prompt: ${prompt}\nRespond with a list of tools, products or names if relevant.`
+                text: `User prompt: ${prompt}`
               }
             ]
           }
