@@ -1,11 +1,11 @@
-export function cleanText(str) {
+function cleanText(str) {
   return str
     .toLowerCase()
     .replace(/[^\w\s]/gi, '')
     .trim();
 }
 
-export function levenshtein(a, b) {
+function levenshtein(a, b) {
   if (!a.length) return b.length;
   if (!b.length) return a.length;
 
@@ -25,8 +25,13 @@ export function levenshtein(a, b) {
   return matrix[b.length][a.length];
 }
 
-export function similarity(a, b) {
+function similarity(a, b) {
   const dist = levenshtein(a, b);
   const maxLen = Math.max(a.length, b.length);
   return 1 - dist / maxLen;
 }
+
+module.exports = {
+  cleanText,
+  similarity
+};

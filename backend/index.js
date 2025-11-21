@@ -1,8 +1,9 @@
-import express from "express";
-import axios from "axios";
-import cors from "cors";
-import { cleanText, similarity } from "./utils.js";
-import 'dotenv/config'
+require("dotenv").config({ path: "./backend/.env" });
+const express = require("express");
+const axios = require("axios");
+const cors = require("cors");
+const { cleanText, similarity } = require("./utils.js");
+
 const app = express();
 
 app.use(cors());
@@ -10,7 +11,6 @@ app.use(express.json());
 
 const GEMINI_URL =
   "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent";
-
 
 app.post("/api/check-brand", async (req, res) => {
   const { prompt, brand } = req.body;
@@ -21,20 +21,20 @@ app.post("/api/check-brand", async (req, res) => {
 
   try {
     const aiRes = await axios.post(
-      `${GEMINI_URL}?key=${APIKEY}`,
+      `${GEMINI_URL}?key=${process.env.GEMINI_API_KEY}`,
       {
         contents: [
           {
             parts: [
               {
-                text: `User prompt: ${prompt}`
-              }
-            ]
-          }
+                text: `User prompt: ${prompt}`,
+              },
+            ],
+          },
         ],
         generationConfig: {
-          temperature: 0.2
-        }
+          temperature: 0.2,
+        },
       }
     );
 
@@ -50,12 +50,7 @@ app.post("/api/check-brand", async (req, res) => {
     const words = cleanedResponse.split(/\s+/);
 
     for (let i = 0; i < words.length; i++) {
-      if (words[i] === cleanedBrand) {
-        mentioned = true;
-        position = i + 1; 
-        break;
-      }
-      if (similarity(words[i], cleanedBrand) >= 0.7) {
+      if (words[i] === cleanedBrand || similarity(words[i], cleanedBrand) >= 0.7) {
         mentioned = true;
         position = i + 1;
         break;
@@ -67,10 +62,12 @@ app.post("/api/check-brand", async (req, res) => {
       position
     });
   } catch (e) {
-    return res.status(404).json({
+    console.error("Gemini error:", e.message);
+
+    return res.status(500).json({
       mentioned: false,
       position: null,
-      response: "AI unavailable – fallback response used."
+      response: "AI unavailable – fallback used.",
     });
   }
 });
