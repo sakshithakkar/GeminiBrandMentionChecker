@@ -2,6 +2,7 @@ import express from "express";
 import axios from "axios";
 import cors from "cors";
 import { cleanText, similarity } from "./utils.js";
+import 'dotenv/config'
 const app = express();
 
 app.use(cors());
@@ -9,8 +10,6 @@ app.use(express.json());
 
 const GEMINI_URL =
   "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent";
-
-const APIKEY = "AIzaSyC007zpYEe_oJ3TfRRsv1fNY9m2D_w6kTk"
 
 
 app.post("/api/check-brand", async (req, res) => {
@@ -63,13 +62,12 @@ app.post("/api/check-brand", async (req, res) => {
       }
     }
 
-    return res.json({
+    return res.status(200).json({
       mentioned,
-      position,
-    //   response: text
+      position
     });
   } catch (e) {
-    return res.json({
+    return res.status(404).json({
       mentioned: false,
       position: null,
       response: "AI unavailable – fallback response used."

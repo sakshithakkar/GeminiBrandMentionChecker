@@ -29,6 +29,7 @@ function App() {
       }
     ]);
   } catch (err) {
+    setRows([])
     alert("Server error");
   }
 
