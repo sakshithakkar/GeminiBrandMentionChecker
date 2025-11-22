@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { checkBrand } from "./api";
 import ResultTable from "./ResultTable";
+import "./App.css"; // make sure to import this
 
 function App() {
   const [prompt, setPrompt] = useState("");
@@ -8,61 +9,70 @@ function App() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
 
- const runCheck = async () => {
-  if (!prompt || !brand) {
-    alert("Both fields required");
-    return;
-  }
+  const runCheck = async () => {
+    if (!prompt || !brand) {
+      alert("Both fields are required");
+      return;
+    }
 
-  setLoading(true);
+    setLoading(true);
 
-  try {
-    const res = await checkBrand(prompt, brand);
+    try {
+      const res = await checkBrand(prompt, brand);
 
-    // RESET previous results
-    setRows([
-      {
-        prompt,
-        brand,
-        mentioned: res.mentioned,
-        position: res.position
-      }
-    ]);
-  } catch (err) {
-    setRows([])
-    alert("Server error");
-  }
+      // Reset previous result
+      setRows([
+        {
+          prompt,
+          brand,
+          mentioned: res.mentioned,
+          position: res.position,
+        },
+      ]);
+    } catch (err) {
+      alert("Server error. Try again.");
+      setRows([]);
+    }
 
-  setLoading(false);
-};
-
+    setLoading(false);
+  };
 
   return (
-    <div style={{ maxWidth: "600px", margin: "auto", paddingTop: "20px" }}>
-      <h2>Gemini Brand Mention Checker</h2>
+    <div className="container">
 
-      <textarea
-        placeholder="Enter prompt"
-        value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
-        style={{ width: "100%", height: "100px" }}
-      />
+      {/* FULLSCREEN LOADER */}
+      {loading && (
+        <div className="overlay">
+          <div className="loader"></div>
+        </div>
+      )}
 
-      <input
-        placeholder="Enter brand name"
-        value={brand}
-        onChange={(e) => setBrand(e.target.value)}
-        style={{ width: "100%", marginTop: "10px" }}
-      />
+      <h2 className="title">Gemini Brand Mention Checker</h2>
 
-      <button
-        onClick={runCheck}
-        disabled={loading}
-        style={{ marginTop: "10px" }}
-      >
-        {loading ? "Checking..." : "Run"}
-      </button>
+      <div className="form">
 
+        <label className="label">Prompt</label>
+        <textarea
+          className="textarea"
+          placeholder="e.g. Recommend the best CRM tools"
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+        />
+
+        <label className="label">Brand Name</label>
+        <input
+          className="input"
+          placeholder="e.g. Salesforce"
+          value={brand}
+          onChange={(e) => setBrand(e.target.value)}
+        />
+
+        <button className="btn" disabled={loading} onClick={runCheck}>
+          Run
+        </button>
+      </div>
+
+      {/* TABLE */}
       <ResultTable rows={rows} />
     </div>
   );

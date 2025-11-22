@@ -1,8 +1,8 @@
 {
   "name": "my-react-app",
   "private": true,
-  "version": "1.0.0",
-  "versioncomment": "Basic UI for Brand Checker",
+  "version": "1.0.1",
+  "versioncomment": "UI Changes",
   "type": "module",
   "scripts": {
     "dev": "vite",
