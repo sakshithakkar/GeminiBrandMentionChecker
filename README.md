@@ -14,7 +14,7 @@ Supports **fuzzy matching**, **CSV download**, **error fallback**, and clean UI.
 https://gemini-brand-mention-checker.vercel.app/
 ```
 
-### 🛠 Backend (Render/Railway)
+### 🛠 Backend (Render)
 
 
 ```
@@ -75,7 +75,7 @@ https://geminibrandmentionchecker.onrender.com
 2. Frontend sends a POST request:
 
    ```
-   /check
+   /api/check
    ```
 3. Backend calls Gemini using the fixed model:
 
