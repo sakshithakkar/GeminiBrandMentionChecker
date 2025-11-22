@@ -1,8 +1,3 @@
-Below is a **complete, polished, job-ready README.md** you can copy-paste directly into your GitHub repo.
-It includes everything the assignment expects and meets all scoring criteria.
-
----
-
 # 🚀 Gemini Brand Mention Checker
 
 A simple web app that checks whether a **brand** is mentioned in a Gemini-generated response for a given **prompt**, including the **position** of the mention.
@@ -30,16 +25,16 @@ https://geminibrandmentionchecker.onrender.com
 
 # 📌 Features
 
-✔ One-page clean UI
-✔ Prompt + Brand input
-✔ Loading animation
-✔ Exact + Fuzzy brand match
-✔ Position detection (1, 2, 3...)
-✔ CSV download
-✔ Proper error fallback
-✔ Backend only stores API key
-✔ Fully deployed on free tiers
-✔ No database needed
+* ✔ One-page clean UI
+* ✔ Prompt + Brand input
+* ✔ Loading animation
+* ✔ Exact + Fuzzy brand match
+* ✔ Position detection (1, 2, 3...)
+* ✔ CSV download
+* ✔ Proper error fallback
+* ✔ Backend only stores API key
+* ✔ Fully deployed on free tiers
+* ✔ No database needed
 
 ---
 
@@ -58,7 +53,6 @@ https://geminibrandmentionchecker.onrender.com
 ### **Frontend**
 
 * React (JavaScript)
-* Fetch API
 * Pure CSS styling
 * Hosted on **Vercel**
 
@@ -67,7 +61,7 @@ https://geminibrandmentionchecker.onrender.com
 * Node.js
 * Express.js
 * Google Gemini API
-* Hosted on **Render / Railway**
+* Hosted on **Render**
 * API key stored in server environment variable
 
 ---
@@ -234,13 +228,7 @@ This meets the assignment requirement:
 
 ---
 
-# 📷 Screenshots (Optional but recommended)
-
-(Add whenever UI is ready)
-
----
-
-# 👨‍💻 Local Development (optional)
+# 👨‍💻 Local Development
 
 ### Backend:
 
